@@ -23,8 +23,8 @@ public class Rand {
 		ArrayList<Object> ret = new ArrayList<>(2);
 		int a, b;
 		if (range > 0){
-			a = r.nextInt(range);
-			b = r.nextInt(10);
+			a = r.nextInt(range);		// 	get item for Arraylist getnull()
+			b = r.nextInt(10);			//	gen tile 2 or 4 10% chance of 4
 			if (b != 9){
 				ret.add(new Tile(2));
 				ret.add(a);
