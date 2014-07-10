@@ -59,40 +59,82 @@ class Grid {
 	}
 	
 	
-	public void sLeft(){
+	public boolean sLeft(){
 		boolean change = false;
+		
+		//i -> y | j -> x
 		for (int i = 0 ; i < 4 ; i ++){
 			for (int j = 0; j < 4 ; j++) {
 				boolean tmp = mLeft(j, i);
 				if (tmp == true)
 					change = true;
 			}
+			aLeft(i);
 		}
 		if (change){
 			//System.out.println(change);			//debug
 			genTile();
 		}
-		
+		return change;
 	}
 	
+	/**
+	 * MoveLeft 
+	 * moving tile left
+	 * (R)
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	private boolean mLeft(int x, int y){
 		boolean ret = false; 		// basd on chenges
 		
 		//we r checking for x-1
 		if (x > 0){
-			System.out.println("mLeft > x: "+ x+ " y: " + y);			//debug
-			if (grid.get(y).get(x-1) == null &&  grid.get(y).get(x) != null){
+			//System.out.println("mLeft > x: "+ x+ " y: " + y);			//debug
+			if (grid.get(y).get(x-1) == null && grid.get(y).get(x) != null){
 				//moving
 				grid.get(y).set(x-1 , grid.get(y).get(x));
 				//setting x to null;
 				grid.get(y).set(x , null);
-				System.out.println("mLeft > innerIf:");		//debug
-				dprint();									//debug
+				//System.out.println("mLeft > innerIf:");		//debug
+				//dprint();										//debug
 				mLeft(x-1, y);
 				ret = true;
 			}
 		}
 		
+		return ret;
+	}
+	/**
+	 * adds left wards
+	 * if any chaenges it runs move to refitt
+	 * @param y
+	 * @return
+	 */
+	private boolean aLeft(int y){
+		boolean ret = false;
+		for (int i = 0; i < 3 ; i++) {
+			if (grid.get(y).get(i) != null) {
+				if (grid.get(y).get(i) != null && grid.get(y).get(i+1) != null) {
+					if (grid.get(y).get(i).getValue() == grid.get(y).get(i + 1).getValue()) {
+						grid.get(y).get(i).addValue(grid.get(y).get(i + 1).getValue());
+						//nulling i+1
+						grid.get(y).set(i+1, null);
+						ret = true;
+					}
+				}
+			}
+		}
+		//reswiping
+		if (ret){
+			System.out.println("aLeft");
+			dprint();			//debug
+			for (int i = 0; i < 4; i++) {
+				mLeft(i, y);
+			}
+			dprint(); 			//debug
+		}
 		return ret;
 	}
 	

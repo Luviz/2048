@@ -16,4 +16,8 @@ public class Tile {
 		this.value = value;
 	}
 	
+	public void addValue (int value){
+		this.value += value;
+	}
+	
 }

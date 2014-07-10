@@ -8,9 +8,12 @@ class Lunch {
 		
 		g.dprint();
 		System.out.println("sLeft");
-		g.sLeft();
-		System.out.println("sLeft > end");
-		g.dprint();
+		while (g.sLeft()) {
+			
+			
+			System.out.println("sLeft > end");
+			g.dprint();
+		}
 		System.out.println("END!");
 		
 	}
