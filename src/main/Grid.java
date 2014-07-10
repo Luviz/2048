@@ -65,11 +65,11 @@ class Grid {
 		//i -> y | j -> x
 		for (int i = 0 ; i < 4 ; i ++){
 			for (int j = 0; j < 4 ; j++) {
-				boolean tmp = mLeft(j, i);
-				if (tmp == true)
+				if(mLeft(j, i))
 					change = true;
 			}
-			aLeft(i);
+			if (aLeft(i))
+				change = true;
 		}
 		if (change){
 			//System.out.println(change);			//debug
@@ -106,6 +106,7 @@ class Grid {
 		
 		return ret;
 	}
+	
 	/**
 	 * adds left wards
 	 * if any chaenges it runs move to refitt
@@ -115,7 +116,7 @@ class Grid {
 	private boolean aLeft(int y){
 		boolean ret = false;
 		for (int i = 0; i < 3 ; i++) {
-			if (grid.get(y).get(i) != null) {
+			if (grid.get(y).get(i) != null) {		//maybe redundant
 				if (grid.get(y).get(i) != null && grid.get(y).get(i+1) != null) {
 					if (grid.get(y).get(i).getValue() == grid.get(y).get(i + 1).getValue()) {
 						grid.get(y).get(i).addValue(grid.get(y).get(i + 1).getValue());
@@ -128,7 +129,7 @@ class Grid {
 		}
 		//reswiping
 		if (ret){
-			System.out.println("aLeft");
+			//System.out.println("aLeft");
 			dprint();			//debug
 			for (int i = 0; i < 4; i++) {
 				mLeft(i, y);
@@ -136,6 +137,72 @@ class Grid {
 			dprint(); 			//debug
 		}
 		return ret;
+	}
+	
+	
+	//RIGHT
+	public boolean sRight(){
+		boolean change = false;
+		
+		//i -> y | j -> x
+		for (int i = 0 ; i < 4 ; i ++){
+			for (int j = 3; j > -1 ; j--) {
+				//System.out.println("sRight> i: " + i + " j: " + j);
+				boolean tmp = mRight(j, i);
+				if (tmp == true)
+					change = true;
+			}
+			if(aRight(i))
+				change = true;
+		}
+		if (change){
+			//System.out.println(change);			//debug
+			genTile();
+		}
+		return change;
+	}
+	
+	private boolean mRight(int x, int y) {
+		boolean ret = false;
+		if (x < 3){
+			if (grid.get(y).get(x+1) == null && grid.get(y).get(x) != null){
+				//moveing
+				grid.get(y).set(x+1, grid.get(y).get(x));
+				//setting x to null
+				grid.get(y).set(x, null);
+				
+				//System.out.println("mRight > innerIf:");		//debug
+				//dprint();										//debug
+				
+				mRight(x+1, y);
+				ret = true;
+			}
+		}
+		return ret;
+	} 
+	
+	private boolean aRight (int y){
+		boolean ret = false;
+		for (int i = 3 ; i > 0 ; i--){
+			if (grid.get(y).get(i) != null && grid.get(y).get(i-1) != null){
+				if (grid.get(y).get(i).getValue() == grid.get(y).get(i-1).getValue()){
+					grid.get(y).get(i).addValue(grid.get(y).get(i - 1).getValue());
+					//nulling 
+					grid.get(y).set(i-1, null);
+					ret = true;
+				}
+			}
+		}
+		//reswiping
+		if (ret){
+			//System.out.println("aRight");
+			dprint();			//debug
+			for (int i = 3; i < 0; i--) {
+				mRight(i, y);
+			}
+			dprint(); 			//debug
+		}
+		return ret; 
 	}
 	
 	/**
