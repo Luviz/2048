@@ -58,6 +58,44 @@ class Grid {
 		return ret;
 	}
 	
+	
+	public void sLeft(){
+		boolean change = false;
+		for (int i = 0 ; i < 4 ; i ++){
+			for (int j = 0; j < 4 ; j++) {
+				boolean tmp = mLeft(j, i);
+				if (tmp == true)
+					change = true;
+			}
+		}
+		if (change){
+			//System.out.println(change);			//debug
+			genTile();
+		}
+		
+	}
+	
+	private boolean mLeft(int x, int y){
+		boolean ret = false; 		// basd on chenges
+		
+		//we r checking for x-1
+		if (x > 0){
+			System.out.println("mLeft > x: "+ x+ " y: " + y);			//debug
+			if (grid.get(y).get(x-1) == null &&  grid.get(y).get(x) != null){
+				//moving
+				grid.get(y).set(x-1 , grid.get(y).get(x));
+				//setting x to null;
+				grid.get(y).set(x , null);
+				System.out.println("mLeft > innerIf:");		//debug
+				dprint();									//debug
+				mLeft(x-1, y);
+				ret = true;
+			}
+		}
+		
+		return ret;
+	}
+	
 	/**
 	 * debug print
 	 */
