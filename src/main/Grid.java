@@ -130,11 +130,11 @@ class Grid {
 		//reswiping
 		if (ret){
 			//System.out.println("aLeft");
-			dprint();			//debug
+			//dprint();			//debug
 			for (int i = 0; i < 4; i++) {
 				mLeft(i, y);
 			}
-			dprint(); 			//debug
+			//dprint(); 			//debug
 		}
 		return ret;
 	}
@@ -194,15 +194,68 @@ class Grid {
 			}
 		}
 		//reswiping
-		if (ret){
+		//if (ret){
 			//System.out.println("aRight");
-			dprint();			//debug
-			for (int i = 3; i < 0; i--) {
+			//dprint();			//debug
+			for (int i = 3; i < -1; i--) {
 				mRight(i, y);
 			}
-			dprint(); 			//debug
-		}
+			
+			//dprint(); 			//debug
+		//}
 		return ret; 
+	}
+	
+	//UP
+	public boolean sUp() {
+		boolean change = false;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				boolean tmp = mUp(i, j);
+				if (tmp)
+					change = true;
+			}
+			if (aUp(i)){
+				change = true;
+			}
+		}
+
+		if (change) {
+			genTile();
+		}
+		return change;
+	}
+
+	private boolean mUp (int x, int y){
+		boolean ret = false;
+		if (y > 0){
+			if (grid.get(y-1).get(x) == null && grid.get(y).get(x) != null){
+				//MOVING
+				grid.get(y-1).set(x, grid.get(y).get(x));
+				//SETTING TO NULL
+				grid.get(y).set(x, null);
+				mUp (x, y-1);
+				ret = true;
+				
+			}
+		}
+		return ret;
+	}
+	
+	private boolean aUp (int x){
+		boolean ret = false;
+		for (int i = 0 ; i < 3; i ++){
+			if (grid.get(i).get(x) != null && grid.get(i+1).get(x) != null){
+				if (grid.get(i).get(x).getValue() == grid.get(i+1).get(x).getValue()){
+					//ADDING
+					grid.get(i).get(x).addValue(grid.get(i+1).get(x).getValue());
+					//NULLING
+					grid.get(i+1).set(x, null);
+					ret = true;
+				}
+			}
+		}
+		return ret;
 	}
 	
 	/**
@@ -215,7 +268,11 @@ class Grid {
 				int v = 0;
 				if (grid.get(i).get(j) != null)
 					v = grid.get(i).get(j).getValue();
-				System.out.print(v+ " ");
+				if (v != 0) {
+					System.out.print("|" + v + "|\t");
+				}else{
+					System.out.print("| |\t");
+				}
 				
 			}
 			System.out.println();
