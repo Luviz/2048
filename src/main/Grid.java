@@ -185,16 +185,16 @@ class Grid {
 					grid.get(y).set(i-1, null);
 					
 					ret = true;
-					System.out.println("aRight:> ret: "+ ret);
+					//System.out.println("aRight:> ret: "+ ret);	//DEBUG
 				}
 			}
 		}
 		//reswiping
-		System.out.println("aRight:> "+ret);
+		//System.out.println("aRight:> "+ret);						//DEBUG
 		if (ret){
-			dprint();			//debug
+			//dprint();			//debug
 			for (int i = 3; i > -1; i--) {
-				System.out.println(i);
+				//System.out.println(i);
 				mRight(i, y);
 			}
 		}
@@ -251,7 +251,7 @@ class Grid {
 			}
 		}
 		//RESWAIPING
-		System.out.println("aUp: >"+ ret);
+		//System.out.println("aUp: >"+ ret);
 		if(ret){
 			for (int i = 0; i < 4; i++) {
 				mUp(x, i);
