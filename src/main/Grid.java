@@ -260,6 +260,59 @@ class Grid {
 		return ret;
 	}
 	
+	public boolean sDown(){
+		boolean change = false;
+		for(int i =0 ; i < 4 ; i++){
+			for (int j = 3 ; j > -1 ; j--){
+				//MOVING
+				if(mDown(i, j))
+					change = true;
+			}
+			//SUMMING
+			if (aDown(i))
+				change = true;	
+		}
+		//GEN A NEW TILE
+		if(change)
+			genTile();
+		return change;
+	}
+	
+	private boolean mDown(int x, int y){
+		boolean ret = false;
+		if (y < 3){
+			if (grid.get(y+1).get(x) == null && grid.get(y).get(x) != null){
+				//MOVING
+				grid.get(y+1).set(x, grid.get(y).get(x));
+				//SETTING TO NULL
+				grid.get(y).set(x, null);
+				mDown (x, y+1);
+				ret = true;
+			}
+		}
+		return ret;
+	}
+	
+	private boolean aDown(int x){
+		boolean ret = false; 
+		for (int i =3; i > 0 ; i--){
+			if (grid.get(i).get(x) != null && grid.get(i-1).get(x)!= null){
+				if (grid.get(i).get(x).getValue() == grid.get(i-1).get(x).getValue()){
+					//ADDING
+					grid.get(i).get(x).addValue(grid.get(i-1).get(x).getValue());
+					//NULLING
+					grid.get(i-1).set(x, null);
+					ret = true;
+				}
+			}
+		}
+		if (ret){
+			for (int i=3; i > -1 ; i --){
+				mDown(x, i);
+			}
+		}
+		return ret;
+	}
 	/**
 	 * debug print
 	 */

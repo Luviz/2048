@@ -26,7 +26,8 @@ class Lunch {
 					g.sLeft();
 					break;
 				case 's':
-					System.out.println("not impelamented yet");
+					g.sDown();
+					//System.out.println("not impelamented yet");
 					break;
 				case 'd':
 					g.sRight();
