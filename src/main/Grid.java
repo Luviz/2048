@@ -97,8 +97,6 @@ class Grid {
 				grid.get(y).set(x-1 , grid.get(y).get(x));
 				//setting x to null;
 				grid.get(y).set(x , null);
-				//System.out.println("mLeft > innerIf:");		//debug
-				//dprint();										//debug
 				mLeft(x-1, y);
 				ret = true;
 			}
@@ -170,10 +168,6 @@ class Grid {
 				grid.get(y).set(x+1, grid.get(y).get(x));
 				//setting x to null
 				grid.get(y).set(x, null);
-				
-				//System.out.println("mRight > innerIf:");		//debug
-				//dprint();										//debug
-				
 				mRight(x+1, y);
 				ret = true;
 			}
@@ -189,20 +183,21 @@ class Grid {
 					grid.get(y).get(i).addValue(grid.get(y).get(i - 1).getValue());
 					//nulling 
 					grid.get(y).set(i-1, null);
+					
 					ret = true;
+					System.out.println("aRight:> ret: "+ ret);
 				}
 			}
 		}
 		//reswiping
-		//if (ret){
-			//System.out.println("aRight");
-			//dprint();			//debug
-			for (int i = 3; i < -1; i--) {
+		System.out.println("aRight:> "+ret);
+		if (ret){
+			dprint();			//debug
+			for (int i = 3; i > -1; i--) {
+				System.out.println(i);
 				mRight(i, y);
 			}
-			
-			//dprint(); 			//debug
-		//}
+		}
 		return ret; 
 	}
 	
@@ -253,6 +248,13 @@ class Grid {
 					grid.get(i+1).set(x, null);
 					ret = true;
 				}
+			}
+		}
+		//RESWAIPING
+		System.out.println("aUp: >"+ ret);
+		if(ret){
+			for (int i = 0; i < 4; i++) {
+				mUp(x, i);
 			}
 		}
 		return ret;

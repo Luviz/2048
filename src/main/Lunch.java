@@ -39,7 +39,7 @@ class Lunch {
 				e.printStackTrace();
 			}
 			
-			
+			System.out.println("lunch> while");
 			g.dprint();
 		}
 		
