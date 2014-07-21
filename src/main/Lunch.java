@@ -8,9 +8,14 @@ class Lunch {
 	public static void main(String [] args) throws IOException {
 		System.out.println("hello");
 		
-		GuiOne go = new GuiOne();
+		GuiTwo go = new GuiTwo();
 		go.setVisible(true);
 		go.setDefaultCloseOperation(go.EXIT_ON_CLOSE);
+		
+		for (int i =0 ; i < 10 ; i++){
+			System.in.read();
+			go.move(i);
+		}
 		
 		//cmd interface
 		/*

@@ -59,6 +59,10 @@ class Grid {
 	}
 	
 	
+	public Tile getTile(int x, int y){
+		return grid.get(y).get(x);
+	}
+	
 	public boolean sLeft(){
 		boolean change = false;
 		
