@@ -14,7 +14,7 @@ class Lunch {
 		
 		for (int i =0 ; i < 10 ; i++){
 			System.in.read();
-			go.move(i);
+			//go.move(i);
 		}
 		
 		//cmd interface

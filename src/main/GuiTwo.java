@@ -1,8 +1,7 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -13,9 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GuiTwo extends JFrame{
+	private JPanel container;
+	
+	private JPanel	uPanel;
 	private JPanel panel;
+	
 	private ImageIcon test;
-	private JLabel jlTest;
+	private JLabel gridBg;
 	
 	private ArrayList<ArrayList<JLabel>>vGrid;
 	
@@ -43,6 +46,7 @@ public class GuiTwo extends JFrame{
 			}
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				grid.sUp();
+				System.out.println(getSize());
 			}
 			if (e.getKeyCode() == KeyEvent.VK_DOWN){
 				grid.sDown();
@@ -65,9 +69,21 @@ public class GuiTwo extends JFrame{
 	}
 	
 	private void init(){
+		container = new JPanel(null);
+		//container.setLayout(new GridBagConstraints());
+		
+		
+		uPanel = new JPanel(null);
+		uPanel.setBackground(Color.BLUE);
+		uPanel.setSize(100, 100);
+		uPanel.setLocation(50, 50);
+		
 		addKeyListener(new kL());
 		
 		panel = new JPanel(null);
+		//panel.setSize(400, 400);
+		panel.setLocation(10, 100);
+		panel.setBackground(Color.black);
 		
 		g = new ArrayList<>();
 		g.add(new Point(10, 10));
@@ -77,9 +93,13 @@ public class GuiTwo extends JFrame{
 		grid = new Grid();
 		
 		test = new ImageIcon("two.png");
-		jlTest = new JLabel(new ImageIcon("4.png"));
-		jlTest.setLocation(10, 10);
-		jlTest.setSize(80,80);
+		
+		gridBg = new JLabel(new ImageIcon("gridbg.png"));
+	
+		gridBg.setSize(new ImageIcon("gridbg.png").getIconHeight(),new ImageIcon("gridbg.png").getIconHeight());
+		gridBg.setLocation(panel.getLocation());
+		
+		
 		
 		//vGrid;
 		vGrid = new ArrayList<>(4);
@@ -87,21 +107,25 @@ public class GuiTwo extends JFrame{
 			vGrid.add(new ArrayList<JLabel>());
 			for (int j = 0; j < 4; j++) {
 				vGrid.get(i).add(new JLabel(new ImageIcon("null.png")));
-				vGrid.get(i).get(j).setLocation(10+j*90, 10+i*90);
+				vGrid.get(i).get(j).setLocation(panel.getLocation().x+10+j*90, panel.getLocation().y+10+i*90);
 				vGrid.get(i).get(j).setSize(80, 80);
 				panel.add(vGrid.get(i).get(j));
 			}
 		}
+		panel.add(gridBg);
+		System.out.println("maxsize"+vGrid.get(3).get(3).getLocation().toString());
 		
 	}
 	
 	private void setting() {
-		setSize(480, 480);
+		setSize(gridBg.getLocation().x + gridBg.getSize().width +25	, gridBg.getLocation().y + gridBg.getSize().height +60) ;
+
 	}
 	
 	private void render(){
 		//panel.add(jlTest);
 		update();
+		add(uPanel);
 		add(panel);
 	}
 	
@@ -111,7 +135,7 @@ public class GuiTwo extends JFrame{
 				if (grid.getTile(j, i) != null) {
 					vGrid.get(i).get(j).setIcon(new ImageIcon(new Integer(grid.getTile(j, i).getValue()).toString()+ ".png"));
 				}else{
-					vGrid.get(i).get(j).setIcon(new ImageIcon("null.png"));
+					vGrid.get(i).get(j).setIcon(new ImageIcon("null1.png"));
 				}
 				
 			}
@@ -119,12 +143,7 @@ public class GuiTwo extends JFrame{
 		grid.dprint(); 	//DEBUG
 	}
 	
-	public void move(int i){
-		if (g.size() > i){
-			jlTest.setLocation(g.get(i));
-			render();
-		}
-	}
+	
 
 	
 	
