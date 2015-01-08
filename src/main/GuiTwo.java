@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public class GuiTwo extends JFrame{
 	private JPanel container;
 	
-	private JPanel	uPanel;
+	private JPanel uPanel;
 	private JPanel panel;
 	
 	private ImageIcon test;
@@ -74,7 +74,7 @@ public class GuiTwo extends JFrame{
 		
 		
 		uPanel = new JPanel(null);
-		uPanel.setBackground(Color.BLUE);
+		uPanel.setBackground(Color.CYAN);
 		uPanel.setSize(100, 100);
 		uPanel.setLocation(50, 50);
 		
@@ -125,7 +125,7 @@ public class GuiTwo extends JFrame{
 	private void render(){
 		//panel.add(jlTest);
 		update();
-		add(uPanel);
+		//add(uPanel);	//upand is a dubug that was useed to see the rendering order
 		add(panel);
 	}
 	
@@ -142,6 +142,7 @@ public class GuiTwo extends JFrame{
 		}
 		grid.dprint(); 	//DEBUG
 	}
+	
 	
 	
 
